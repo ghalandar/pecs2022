@@ -10,25 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+      - name: Checkout main branch
+        uses: actions/checkout@v2
         with:
-          ruby-version: 2.7
+          ref: main
 
-      - name: Install dependencies
+      - name: Set up Git
         run: |
-          gem install bundler
-          bundle install
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-      - name: Build Jekyll site
-        run: bundle exec jekyll build
-
-      - name: Deploy to GitHub Pages
+      - name: Deploy _site folder to gh-pages branch
         run: |
           git checkout --orphan gh-pages
           git rm -rf .
           mv _site/* .
           rm -R _site/
           git add -A
-          git commit -m "Deploy to GitHub Pages"
+          git commit -m "Deploy _site to GitHub Pages"
           git push -u origin gh-pages --force
