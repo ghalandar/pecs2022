@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout master branch
-        uses: actions/checkout@v2.5.1  # Use the latest version available
+      - name: Checkout main branch
+        uses: actions/checkout
         with:
           ref: master
 
