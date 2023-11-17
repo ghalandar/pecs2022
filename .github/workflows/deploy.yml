@@ -10,15 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main branch
+      - name: Checkout master branch
         uses: actions/checkout@v2
         with:
-          ref: main
+          ref: master
 
       - name: Set up Git
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
 
       - name: Deploy _site folder to gh-pages branch
         run: |
